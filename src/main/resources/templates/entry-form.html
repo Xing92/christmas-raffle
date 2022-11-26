@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>Xing loteria prezentowa</title>
+
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+		<a class="navbar-brand" th:href="${@environment.getProperty('server.servlet.contextPath')}">X-ing.pl</a>
+	</nav>
+	<div class="container">
+		<h1>Prezenciki</h1>
+
+		<form action="#" th:action="@{/entry/add}" th:object="${entry}" method="POST">
+			<input type="text" th:field="*{name}" placeholder="imię" class="form-control mb-4 col-4">
+			<input type="text" th:field="*{email}" placeholder="email" class="form-control mb-4 col-4">
+			<input type="text" th:field="*{presents}" placeholder="prezenty" class="form-control mb-4 col-8">
+			<button type="submit" class="btn btn-info col-2">Zapisz wpis</button>
+		</form>
+		<hr>
+	</div>
+</body>
+
+</html>
