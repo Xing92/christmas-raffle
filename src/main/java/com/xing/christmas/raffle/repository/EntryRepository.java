@@ -11,8 +11,8 @@ import com.xing.christmas.raffle.Entry;
 @Repository
 public interface EntryRepository extends JpaRepository<Entry, Long> {
 
-	Optional<Entry> findByName(String name);
+	Optional<Entry> findByNameIgnoreCase(String name);
 
-	Optional<Entry> findByNameAndEmail(String name, String email);
+	Optional<Entry> findByNameIgnoreCaseAndEmailIgnoreCase(String name, String email);
 
 }

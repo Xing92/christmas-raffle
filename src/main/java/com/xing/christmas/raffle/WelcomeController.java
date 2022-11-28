@@ -80,7 +80,7 @@ public class WelcomeController {
 		if (entry.getName().isBlank() || entry.getEmail().isBlank() || entry.getPresents().isBlank()) {
 			return "entry-fail";
 		}
-		if (entryRepository.findByName(entry.getName()).isPresent()) {
+		if (entryRepository.findByNameIgnoreCase(entry.getName()).isPresent()) {
 			return "entry-fail";
 		}
 		entryRepository.save(entry);
@@ -97,7 +97,8 @@ public class WelcomeController {
 	@PostMapping("/entry/edit")
 	public String saveEditEntry(Model model, @ModelAttribute("entry") Entry requestEntry) {
 
-		Optional<Entry> entry = entryRepository.findByNameAndEmail(requestEntry.getName(), requestEntry.getEmail());
+		Optional<Entry> entry = entryRepository.findByNameIgnoreCaseAndEmailIgnoreCase(requestEntry.getName(),
+				requestEntry.getEmail());
 
 		if (entry.isEmpty()) {
 			model.addAttribute("entry", requestEntry);
@@ -119,7 +120,8 @@ public class WelcomeController {
 
 	@PostMapping("/entry/self")
 	public String getSelfDetails(Model model, @ModelAttribute("entry") Entry requestEntry) {
-		Optional<Entry> entry = entryRepository.findByNameAndEmail(requestEntry.getName(), requestEntry.getEmail());
+		Optional<Entry> entry = entryRepository.findByNameIgnoreCaseAndEmailIgnoreCase(requestEntry.getName(),
+				requestEntry.getEmail());
 		if (entry.isEmpty()) {
 			model.addAttribute("entry", requestEntry);
 			return "entry-fail";
@@ -131,8 +133,9 @@ public class WelcomeController {
 
 	@PostMapping("/entry/self/edit")
 	public String editSelfDetails(Model model, @ModelAttribute("entry") Entry requestEntry) {
-		System.out.println("requestEntry: "+ requestEntry);
-		Optional<Entry> oldEntry = entryRepository.findByNameAndEmail(requestEntry.getName(), requestEntry.getEmail());
+		System.out.println("requestEntry: " + requestEntry);
+		Optional<Entry> oldEntry = entryRepository.findByNameIgnoreCaseAndEmailIgnoreCase(requestEntry.getName(),
+				requestEntry.getEmail());
 		if (oldEntry.isEmpty()) {
 			model.addAttribute("entry", requestEntry);
 			return "entry-fail";
