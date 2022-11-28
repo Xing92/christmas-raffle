@@ -18,8 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xing.christmas.raffle.email.EmailHelper;
 import com.xing.christmas.raffle.repository.EntryRepository;
+import com.xing.christmas.raffle.util.EmailHelper;
+import com.xing.christmas.raffle.util.RaffleHelper;
 
 @Controller
 public class WelcomeController {
@@ -126,6 +127,14 @@ public class WelcomeController {
 		return "welcome";
 	}
 
+	@GetMapping("/admin/raffle")
+	public String adminRaffle() {
+		List<Entry> entries = entryRepository.findAll();
+		List<Entry> raffleEntries = RaffleHelper.raffle(entries);
+		System.out.println("Raffle done: " + raffleEntries.stream().map(Entry::getName).collect(Collectors.toList()));
+		return "welcome";
+	}
+
 	@GetMapping("/admin/load")
 	public String adminLoadAll() {
 		try {
@@ -133,6 +142,7 @@ public class WelcomeController {
 			List<Entry> entries = Arrays
 					.asList(new ObjectMapper().readValue(new File("./entries.json"), Entry[].class));
 			entryRepository.deleteAll();
+			System.out.println("saving:" + entries.stream().map(Entry::getName).collect(Collectors.toList()));
 			entryRepository.saveAll(entries);
 		} catch (IOException e) {
 			e.printStackTrace();

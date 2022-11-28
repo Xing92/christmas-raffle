@@ -20,9 +20,9 @@
 		<h1>Prezenciki</h1>
 
 		<form action="#" th:action="@{/entry/add}" th:object="${entry}" method="POST">
-			<input type="text" th:field="*{name}" placeholder="imię" class="form-control mb-4 col-4">
-			<input type="text" th:field="*{email}" placeholder="email" class="form-control mb-4 col-4">
-			<input type="text" th:field="*{presents}" placeholder="prezenty" class="form-control mb-4 col-8">
+			<input type="text" th:field="*{name}" placeholder="Twoje imię" class="form-control mb-4 col-4">
+			<input type="text" th:field="*{email}" placeholder="Twój email" class="form-control mb-4 col-4">
+			<input type="text" th:field="*{presents}" placeholder="Twoje wymarzone prezenty" class="form-control mb-4 col-8">
 			<button type="submit" class="btn btn-info col-2">Zapisz wpis</button>
 		</form>
 		<hr>

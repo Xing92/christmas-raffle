@@ -1,8 +1,5 @@
 package com.xing.christmas.raffle;
 
-import java.util.List;
-
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +13,7 @@ public class Entry {
 	private String name;
 	private String email;
 	private String presents;
+	private Integer excludeGroup;
 
 	public Long getId() {
 		return id;
@@ -49,9 +47,18 @@ public class Entry {
 		this.presents = presents;
 	}
 
+	public Integer getExcludeGroup() {
+		return excludeGroup;
+	}
+
+	public void setExcludeGroup(Integer excludeGroup) {
+		this.excludeGroup = excludeGroup;
+	}
+
 	@Override
 	public String toString() {
-		return "Entry [id=" + id + ", name=" + name + ", email=" + email + ", presents=" + presents + "]";
+		return "Entry [id=" + id + ", name=" + name + ", email=" + email + ", presents=" + presents + ", excludeGroup="
+				+ excludeGroup + "]";
 	}
 
 }
