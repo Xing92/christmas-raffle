@@ -20,8 +20,11 @@
 		<h1>Prezenciki</h1>
 
 		<form action="#" th:action="@{/entry/self/edit}" th:object="${entry}" method="POST">
+			Imię
 			<input type="text" th:field="*{name}" placeholder=${entry.name} class="form-control mb-4 col-8" th:readonly=true>
+			Email
 			<input type="text" th:field="*{email}" placeholder=${entry.email} class="form-control mb-4 col-8" th:readonly=true>
+			Twoje wymarzone prezenty (z linkami)
 			<input type="text" th:field="*{presents}" placeholder=${entry.presents} class="form-control mb-4 col-16">
 			<button type="submit" class="btn btn-info col-2">Zapisz zmiany</button>
 		</form>
