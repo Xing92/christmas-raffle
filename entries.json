@@ -1,8 +1,1 @@
-[{"id":1,"name":"Pawel","email":"pawel.ciazynski@gmail.com","presents":"prezent1, prezent2'","excludeGroup":1},
-{"id":2,"name":"Ewelina","email":"pawel.ciazynski@gmail.com","presents":"prezent1, prezent2'","excludeGroup":1},
-{"id":3,"name":"Agnieszka","email":"pawel.ciazynski@gmail.com","presents":"prezent1, prezent2'","excludeGroup":2},
-{"id":4,"name":"Adam","email":"pawel.ciazynski@gmail.com","presents":"prezent1, prezent2'","excludeGroup":2},
-{"id":5,"name":"Magda","email":"pawel.ciazynski@gmail.com","presents":"prezent1, prezent2'","excludeGroup":3},
-{"id":6,"name":"Karol","email":"pawel.ciazynski@gmail.com","presents":"prezent1, prezent2'","excludeGroup":3},
-{"id":7,"name":"Arek","email":"pawel.ciazynski@gmail.com","presents":"prezent1, prezent2'","excludeGroup":4},
-{"id":8,"name":"Ilona","email":"pawel.ciazynski@gmail.com","presents":"prezent1, prezent2'","excludeGroup":4}]
+[{"id":9,"name":"Pawel","email":"pawel.ciazynski@gmail.com","presents":"prezent1, prezent2'","excludeGroup":1},{"id":10,"name":"Ewelina","email":"pawel.ciazynski@gmail.com","presents":"prezent1, prezent2'","excludeGroup":1},{"id":11,"name":"Agnieszka","email":"pawel.ciazynski@gmail.com","presents":"prezent1, prezent2'","excludeGroup":2},{"id":12,"name":"Adam","email":"pawel.ciazynski@gmail.com","presents":"prezent1, prezent2'","excludeGroup":2},{"id":13,"name":"Magda","email":"pawel.ciazynski@gmail.com","presents":"prezent1, prezent2'","excludeGroup":3},{"id":14,"name":"Karol","email":"pawel.ciazynski@gmail.com","presents":"prezent1, prezent2'","excludeGroup":3},{"id":15,"name":"Arek","email":"pawel.ciazynski@gmail.com","presents":"prezent1, prezent2'","excludeGroup":4},{"id":16,"name":"Ilona","email":"pawel.ciazynski@gmail.com","presents":"prezent1, prezent2'","excludeGroup":4}]

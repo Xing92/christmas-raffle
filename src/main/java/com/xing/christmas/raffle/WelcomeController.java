@@ -3,6 +3,8 @@ package com.xing.christmas.raffle;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +39,11 @@ public class WelcomeController {
 	@GetMapping({ "/", "/home" })
 	public String main(Model model) {
 		List<String> names = entryRepository.findAll().stream().map(Entry::getName).collect(Collectors.toList());
+		try {
+			model.addAttribute("endDate", new SimpleDateFormat("yyyy-MM-dd").parse("2022-12-03"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		System.out.println("names=" + names);
 		model.addAttribute("names", names);
 
@@ -92,7 +99,6 @@ public class WelcomeController {
 
 		Optional<Entry> entry = entryRepository.findByNameAndEmail(requestEntry.getName(), requestEntry.getEmail());
 
-		System.out.println(entry.isPresent());
 		if (entry.isEmpty()) {
 			model.addAttribute("entry", requestEntry);
 			return "entry-fail";
@@ -101,6 +107,40 @@ public class WelcomeController {
 		editedEntry.setPresents(requestEntry.getPresents());
 		entryRepository.save(editedEntry);
 		model.addAttribute("entry", editedEntry);
+		return "entry-success";
+	}
+
+	@GetMapping("/entry/self")
+	public String getSelfDetails(Model model) {
+		Entry entry = new Entry();
+		model.addAttribute("entry", entry);
+		return "entry-self";
+	}
+
+	@PostMapping("/entry/self")
+	public String getSelfDetails(Model model, @ModelAttribute("entry") Entry requestEntry) {
+		Optional<Entry> entry = entryRepository.findByNameAndEmail(requestEntry.getName(), requestEntry.getEmail());
+		if (entry.isEmpty()) {
+			model.addAttribute("entry", requestEntry);
+			return "entry-fail";
+		}
+		Entry selfEntry = entry.get();
+		model.addAttribute("entry", selfEntry);
+		return "entry-self-edit";
+	}
+
+	@PostMapping("/entry/self/edit")
+	public String editSelfDetails(Model model, @ModelAttribute("entry") Entry requestEntry) {
+		System.out.println("requestEntry: "+ requestEntry);
+		Optional<Entry> oldEntry = entryRepository.findByNameAndEmail(requestEntry.getName(), requestEntry.getEmail());
+		if (oldEntry.isEmpty()) {
+			model.addAttribute("entry", requestEntry);
+			return "entry-fail";
+		}
+		Entry selfEntry = oldEntry.get();
+		selfEntry.setPresents(requestEntry.getPresents());
+		entryRepository.save(selfEntry);
+		model.addAttribute("entry", selfEntry);
 		return "entry-success";
 	}
 
