@@ -75,15 +75,23 @@ public class WelcomeController {
 	}
 
 	@PostMapping("/entry/add")
-	public String saveAddEntry(Model model, @ModelAttribute("entry") Entry entry) {
-		model.addAttribute("user", entry);
-		if (entry.getName().isBlank() || entry.getEmail().isBlank() || entry.getPresents().isBlank()) {
+	public String saveAddEntry(Model model, @ModelAttribute("entry") Entry requestEntry) {
+		model.addAttribute("user", requestEntry);
+		if (requestEntry.getName().isBlank() || requestEntry.getEmail().isBlank()
+				|| requestEntry.getPresents().isBlank()) {
 			return "entry-fail";
 		}
-		if (entryRepository.findByNameIgnoreCase(entry.getName()).isPresent()) {
+		Optional<Entry> optionalEntry = entryRepository.findByNameIgnoreCaseAndEmailIgnoreCase(requestEntry.getName(),
+				requestEntry.getEmail());
+		if (optionalEntry.isPresent()) {
+			Entry entry = optionalEntry.get();
+			entry.setPresents(entry.getPresents() + " ; " + requestEntry.getPresents());
+			entryRepository.save(entry);
+		} else if (entryRepository.findByNameIgnoreCase(requestEntry.getName()).isPresent()) {
 			return "entry-fail";
+		} else {
+			entryRepository.save(requestEntry);
 		}
-		entryRepository.save(entry);
 		return "entry-success";
 	}
 
