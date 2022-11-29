@@ -10,11 +10,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -84,10 +88,10 @@ public class WelcomeController {
 				requestEntry.getEmail());
 		if (optionalEntry.isPresent()) {
 			Entry entry = optionalEntry.get();
-//			entry.setPresents(entry.getPresents() + " ; " + requestEntry.getPresents());
-			entry.setPresents1(requestEntry.getPresents1());
-			entry.setPresents2(requestEntry.getPresents2());
-			entry.setPresents3(requestEntry.getPresents3());
+			entry.addPresent(requestEntry.getNextPresent());
+//			entry.setPresents1(requestEntry.getPresents1());
+//			entry.setPresents2(requestEntry.getPresents2());
+//			entry.setPresents3(requestEntry.getPresents3());
 			entryRepository.save(entry);
 		} else if (entryRepository.findByNameIgnoreCase(requestEntry.getName()).isPresent()) {
 			return "entry-fail";
@@ -115,9 +119,9 @@ public class WelcomeController {
 			return "entry-fail";
 		}
 		Entry editedEntry = entry.get();
-		editedEntry.setPresents1(requestEntry.getPresents1());
-		editedEntry.setPresents2(requestEntry.getPresents2());
-		editedEntry.setPresents3(requestEntry.getPresents3());
+//		editedEntry.setPresents1(requestEntry.getPresents1());
+//		editedEntry.setPresents2(requestEntry.getPresents2());
+//		editedEntry.setPresents3(requestEntry.getPresents3());
 		entryRepository.save(editedEntry);
 		model.addAttribute("entry", editedEntry);
 		return "entry-success";
@@ -143,6 +147,19 @@ public class WelcomeController {
 		return "entry-self-edit";
 	}
 
+	@PostMapping("/entry/self/edit/deletePresent/{presentName}")
+	public String deletePresentFromEntry(@PathVariable("presentName") String presentName, Model model, @ModelAttribute("entry") Entry requestEntry) {
+		System.out.println("ID:"+presentName);
+		Optional<Entry> oldEntry = entryRepository.findByNameIgnoreCaseAndEmailIgnoreCase(requestEntry.getName(),
+				requestEntry.getEmail());
+		Entry entry = oldEntry.get();
+		System.out.println(entry);
+		entry.getPresents().remove(presentName);
+		entryRepository.save(entry);
+		model.addAttribute("entry", entry);
+		return "entry-self-edit";
+	}
+	
 	@PostMapping("/entry/self/edit")
 	public String editSelfDetails(Model model, @ModelAttribute("entry") Entry requestEntry) {
 		System.out.println("requestEntry: " + requestEntry);
@@ -153,13 +170,20 @@ public class WelcomeController {
 			return "entry-fail";
 		}
 		Entry selfEntry = oldEntry.get();
-		selfEntry.setPresents1(requestEntry.getPresents1());
-		selfEntry.setPresents2(requestEntry.getPresents2());
-		selfEntry.setPresents3(requestEntry.getPresents3());
+//		selfEntry.setPresents1(requestEntry.getPresents1());
+//		selfEntry.setPresents2(requestEntry.getPresents2());
+//		selfEntry.setPresents3(requestEntry.getPresents3());
+		
+//		selfEntry.setPresents(requestEntry.getPresents());
+		
+		if(!requestEntry.getNextPresent().trim().isBlank()) {
+			selfEntry.addPresent(requestEntry.getNextPresent());
+		}
 
 		entryRepository.save(selfEntry);
 		model.addAttribute("entry", selfEntry);
-		return "entry-success";
+//		return "entry-success";
+		return "entry-self-edit";
 	}
 
 	@GetMapping("/admin/dump")

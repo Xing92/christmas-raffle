@@ -1,5 +1,9 @@
 package com.xing.christmas.raffle;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,9 +16,9 @@ public class Entry {
 	private Long id;
 	private String name;
 	private String email;
-	private String presents1;
-	private String presents2;
-	private String presents3;
+	@ElementCollection
+	private List<String> presents = new ArrayList<>();
+	private String nextPresent;
 	private Integer excludeGroup;
 
 	public Long getId() {
@@ -40,30 +44,6 @@ public class Entry {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public String getPresents1() {
-		return presents1;
-	}
-
-	public void setPresents1(String presents1) {
-		this.presents1 = presents1;
-	}
-
-	public String getPresents2() {
-		return presents2;
-	}
-
-	public void setPresents2(String presents2) {
-		this.presents2 = presents2;
-	}
-
-	public String getPresents3() {
-		return presents3;
-	}
-
-	public void setPresents3(String presents3) {
-		this.presents3 = presents3;
-	}
 
 	public Integer getExcludeGroup() {
 		return excludeGroup;
@@ -73,10 +53,30 @@ public class Entry {
 		this.excludeGroup = excludeGroup;
 	}
 
+	public List<String> getPresents() {
+		return presents;
+	}
+
+	public void setPresents(List<String> presents) {
+		this.presents = presents;
+	}
+
+	public void addPresent(String present) {
+		this.presents.add(present);
+	}
+
+	public String getNextPresent() {
+		return nextPresent;
+	}
+
+	public void setNextPresent(String nextPresent) {
+		this.nextPresent = nextPresent;
+	}
+
 	@Override
 	public String toString() {
-		return "Entry [id=" + id + ", name=" + name + ", email=" + email + ", presents=" + presents1 + ", excludeGroup="
-				+ excludeGroup + "]";
+		return "Entry [id=" + id + ", name=" + name + ", email=" + email + ", presents=" + presents + ", nextPresent="
+				+ nextPresent + ", excludeGroup=" + excludeGroup + "]";
 	}
 
 }

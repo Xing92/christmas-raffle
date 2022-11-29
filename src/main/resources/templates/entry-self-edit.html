@@ -19,15 +19,22 @@
 	<div class="container">
 		<h1>Prezenciki</h1>
 
-		<form action="#" th:action="@{/entry/self/edit}" th:object="${entry}" method="POST">
+		<form th:action="@{/entry/self/edit}" th:object="${entry}" method="POST">
 			Imię
-			<input type="text" th:field="*{name}" placeholder=${entry.name} class="form-control mb-4 col-8" th:readonly=true>
+			<input style="width:85%" type="text" th:field="*{name}" placeholder=${entry.name} class="form-control mb-4 col-8" th:readonly=true/>
 			Email
-			<input type="text" th:field="*{email}" placeholder=${entry.email} class="form-control mb-4 col-8" th:readonly=true>
+			<input style="width:85%" type="text" th:field="*{email}" placeholder=${entry.email} class="form-control mb-4 col-8" th:readonly=true/>
 			Twoje wymarzone prezenty (z linkami)
-			<input type="text" th:field="*{presents1}" placeholder=${entry.presents1} class="form-control mb-4 col-16">
-			<input type="text" th:field="*{presents2}" placeholder=${entry.presents2} class="form-control mb-4 col-16">
-			<input type="text" th:field="*{presents3}" placeholder=${entry.presents3} class="form-control mb-4 col-16">
+<!-- 			<input style="width:85%" type="text" th:field="*{presents1}" placeholder=${entry.presents1} class="form-control mb-4 col-16"/> -->
+<!-- 			<input style="width:85%" type="text" th:field="*{presents2}" placeholder=${entry.presents2} class="form-control mb-4 col-16"/> -->
+<!-- 			<input style="width:85%" type="text" th:field="*{presents3}" placeholder=${entry.presents3} class="form-control mb-4 col-16"/> -->
+			<tr style="width:100%" th:each="present : ${entry.presents}">
+				<input style="width:85%;display:inline-block" type="text" th:value="${present}" placeholder=${present} class="form-control mb-4 col-16" th:readonly=true/>
+<!-- 				<form th:action="@{/entry/self/edit/present/{pr}(pr=${present})}" th:object="${entry}" method="DELETE"> -->
+					<button th:formaction="@{/entry/self/edit/deletePresent/{pr}(pr=${present})}" th:object="${entry}" method="DELETE" style="width:5%;display:inline-block;background-color:red;border-radius:20%" type="submit">X</button>
+<!-- 				</form> -->
+			</tr>
+			<input style="width:85%" type="text" th:field="*{nextPresent}" placeholder="" class="form-control mb-4 col-16"/>
 			<button type="submit" class="btn btn-info col-2">Zapisz zmiany</button>
 		</form>
 		<hr>

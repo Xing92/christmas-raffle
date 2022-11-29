@@ -25,12 +25,16 @@
 			Email
 			<input type="text" th:field="*{email}" placeholder="Twój email" class="form-control mb-4 col-8">
 			Twoje wymarzone prezenty (z linkami)
-			<input type="text" th:field="*{presents1}" placeholder="Twoje wymarzone prezenty (z linkami)"
-				class="form-control mb-4 col-16">
-			<input type="text" th:field="*{presents2}" placeholder="Twoje wymarzone prezenty (z linkami)"
-				class="form-control mb-4 col-16">
-			<input type="text" th:field="*{presents3}" placeholder="Twoje wymarzone prezenty (z linkami)"
-				class="form-control mb-4 col-16">
+<!-- 			<input type="text" th:field="*{presents1}" placeholder="Twoje wymarzone prezenty (z linkami)" -->
+<!-- 				class="form-control mb-4 col-16"> -->
+<!-- 			<input type="text" th:field="*{presents2}" placeholder="Twoje wymarzone prezenty (z linkami)" -->
+<!-- 				class="form-control mb-4 col-16"> -->
+<!-- 			<input type="text" th:field="*{presents3}" placeholder="Twoje wymarzone prezenty (z linkami)" -->
+<!-- 				class="form-control mb-4 col-16"> -->
+<!-- 			<tr th:each="presents : ${entry.presents}"> -->
+<!-- 				<input type="text" th:field="*{presents}" placeholder=${presents} class="form-control mb-4 col-16"> -->
+<!-- 			</tr> -->
+			<input type="text" th:field="*{nextPresent}" placeholder="" class="form-control mb-4 col-16">
 			<button type="submit" class="btn btn-info col-2">Zapisz wpis</button>
 		</form>
 		<hr>

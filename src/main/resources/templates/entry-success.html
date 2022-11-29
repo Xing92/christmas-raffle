@@ -23,8 +23,8 @@
 			<h1>Brawo</h1>
 			<h2>
 				<span th:text="'Udało się zapisać twoje prezenciki, ' + ${entry.name} + '!'"></span>
-				<span
-					th:text="'Zapisane prezenciki to: ' + ${entry.presents1} + ' ' + ${entry.presents2} + ' ' + ${entry.presents1}"></span>
+<!-- 				<span -->
+<!-- 					th:text="'Zapisane prezenciki to: ' + ${entry.presents1} + ' ' + ${entry.presents2} + ' ' + ${entry.presents3}"></span> -->
 			</h2>
 			<a th:href="${@environment.getProperty('server.servlet.contextPath')}" class="btn btn-info">OK</a>
 		</div>
