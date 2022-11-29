@@ -77,15 +77,17 @@ public class WelcomeController {
 	@PostMapping("/entry/add")
 	public String saveAddEntry(Model model, @ModelAttribute("entry") Entry requestEntry) {
 		model.addAttribute("user", requestEntry);
-		if (requestEntry.getName().isBlank() || requestEntry.getEmail().isBlank()
-				|| requestEntry.getPresents().isBlank()) {
+		if (requestEntry.getName().isBlank() || requestEntry.getEmail().isBlank()) {
 			return "entry-fail";
 		}
 		Optional<Entry> optionalEntry = entryRepository.findByNameIgnoreCaseAndEmailIgnoreCase(requestEntry.getName(),
 				requestEntry.getEmail());
 		if (optionalEntry.isPresent()) {
 			Entry entry = optionalEntry.get();
-			entry.setPresents(entry.getPresents() + " ; " + requestEntry.getPresents());
+//			entry.setPresents(entry.getPresents() + " ; " + requestEntry.getPresents());
+			entry.setPresents1(requestEntry.getPresents1());
+			entry.setPresents2(requestEntry.getPresents2());
+			entry.setPresents3(requestEntry.getPresents3());
 			entryRepository.save(entry);
 		} else if (entryRepository.findByNameIgnoreCase(requestEntry.getName()).isPresent()) {
 			return "entry-fail";
@@ -113,7 +115,9 @@ public class WelcomeController {
 			return "entry-fail";
 		}
 		Entry editedEntry = entry.get();
-		editedEntry.setPresents(requestEntry.getPresents());
+		editedEntry.setPresents1(requestEntry.getPresents1());
+		editedEntry.setPresents2(requestEntry.getPresents2());
+		editedEntry.setPresents3(requestEntry.getPresents3());
 		entryRepository.save(editedEntry);
 		model.addAttribute("entry", editedEntry);
 		return "entry-success";
@@ -149,7 +153,10 @@ public class WelcomeController {
 			return "entry-fail";
 		}
 		Entry selfEntry = oldEntry.get();
-		selfEntry.setPresents(requestEntry.getPresents());
+		selfEntry.setPresents1(requestEntry.getPresents1());
+		selfEntry.setPresents2(requestEntry.getPresents2());
+		selfEntry.setPresents3(requestEntry.getPresents3());
+
 		entryRepository.save(selfEntry);
 		model.addAttribute("entry", selfEntry);
 		return "entry-success";
