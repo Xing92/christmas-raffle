@@ -147,14 +147,16 @@ public class WelcomeController {
 		return "entry-self-edit";
 	}
 
-	@PostMapping("/entry/self/edit/deletePresent/{presentName}")
-	public String deletePresentFromEntry(@PathVariable("presentName") String presentName, Model model, @ModelAttribute("entry") Entry requestEntry) {
-		System.out.println("ID:"+presentName);
+	@PostMapping("/entry/self/edit/deletePresent/{number}")
+	public String deletePresentFromEntry(@PathVariable("number") int number, Model model, @ModelAttribute("entry") Entry requestEntry) {
+		System.out.println("Delete number:"+number);
 		Optional<Entry> oldEntry = entryRepository.findByNameIgnoreCaseAndEmailIgnoreCase(requestEntry.getName(),
 				requestEntry.getEmail());
 		Entry entry = oldEntry.get();
 		System.out.println(entry);
-		entry.getPresents().remove(presentName);
+		System.out.println("Before del: " + entry.getPresents());
+		entry.getPresents().remove(number);
+		System.out.println("After del: " + entry.getPresents());
 		entryRepository.save(entry);
 		model.addAttribute("entry", entry);
 		return "entry-self-edit";
