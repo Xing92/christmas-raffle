@@ -3,6 +3,7 @@ package com.xing.christmas.raffle;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ public class Entry {
 	private String name;
 	private String email;
 	@ElementCollection
+	@Column(length = 1_000)
 	private List<String> presents = new ArrayList<>();
 	private String nextPresent;
 	private Integer excludeGroup;
