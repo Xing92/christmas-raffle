@@ -183,6 +183,7 @@ public class WelcomeController {
 		
 		if(!requestEntry.getNextPresent().trim().isBlank()) {
 			selfEntry.addPresent(requestEntry.getNextPresent());
+			selfEntry.setNextPresent("");
 		}
 
 		entryRepository.save(selfEntry);

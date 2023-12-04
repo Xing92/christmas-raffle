@@ -18,9 +18,9 @@ public class Entry {
 	private String name;
 	private String email;
 	@ElementCollection
-	@Column(length = 1_000)
+	@Column(length = 10_000)
 	private List<String> presents = new ArrayList<>();
-	@Column(length = 1_000)
+	@Column(length = 10_000)
 	private String nextPresent;
 	private Integer excludeGroup;
 
