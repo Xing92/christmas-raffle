@@ -92,10 +92,13 @@ public class WelcomeController {
 //			entry.setPresents1(requestEntry.getPresents1());
 //			entry.setPresents2(requestEntry.getPresents2());
 //			entry.setPresents3(requestEntry.getPresents3());
+			entry.setNextPresent("");
 			entryRepository.save(entry);
 		} else if (entryRepository.findByNameIgnoreCase(requestEntry.getName()).isPresent()) {
 			return "entry-fail";
 		} else {
+			requestEntry.addPresent(requestEntry.getNextPresent());
+			requestEntry.setNextPresent("");
 			entryRepository.save(requestEntry);
 		}
 		return "entry-success";

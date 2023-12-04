@@ -20,6 +20,7 @@ public class Entry {
 	@ElementCollection
 	@Column(length = 1_000)
 	private List<String> presents = new ArrayList<>();
+	@Column(length = 1_000)
 	private String nextPresent;
 	private Integer excludeGroup;
 
